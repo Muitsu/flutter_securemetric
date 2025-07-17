@@ -1,5 +1,12 @@
+import org.gradle.api.tasks.Delete
+import org.gradle.api.file.Directory
+
 allprojects {
     repositories {
+        //✅ Fix: Add flatDir in Kotlin DSL
+        flatDir {
+            dirs(project(":flutter_securemetric").file("libs"))
+        }
         google()
         mavenCentral()
     }
@@ -12,6 +19,7 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }

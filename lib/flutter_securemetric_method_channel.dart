@@ -10,13 +10,13 @@ class MethodChannelFlutterSecuremetric extends FlutterSecuremetricPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('com.myKad/fingerprint');
   final String _tag = "Securemetric";
-  @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>(
-      'getPlatformVersion',
-    );
-    return version;
-  }
+  // @override
+  // Future<String?> getPlatformVersion() async {
+  //   final version = await methodChannel.invokeMethod<String>(
+  //     'getPlatformVersion',
+  //   );
+  //   return version;
+  // }
 
   @override
   Future<void> callSDK({bool usingFP = false, String? license}) async {

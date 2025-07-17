@@ -1,6 +1,12 @@
 package com.securemetric.myidreader.flutter_securemetric;
 
+import android.bluetooth.BluetoothAdapter;
+import android.hardware.usb.UsbDevice;
+
 import androidx.annotation.NonNull;
+
+import com.securemetric.reader.myid.MyIDListener;
+import com.securemetric.reader.myid.MyIDPermissionListener;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -9,7 +15,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 /** FlutterSecuremetricPlugin */
-public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandler, MyIDListener, MyIDPermissionListener {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -34,5 +40,20 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     channel.setMethodCallHandler(null);
+  }
+
+  @Override
+  public void onCardStatusChange(String s, short i) {
+
+  }
+
+  @Override
+  public void onRequestUsbPermission(UsbDevice usbDevice) {
+
+  }
+
+  @Override
+  public void onRequestBluetoothEnable(BluetoothAdapter bluetoothAdapter) {
+
   }
 }

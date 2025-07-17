@@ -24,9 +24,9 @@ abstract class FlutterSecuremetricPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
+  // Future<String?> getPlatformVersion() {
+  //   throw UnimplementedError('platformVersion() has not been implemented.');
+  // }
 
   //
   Future<void> callSDK({bool usingFP = false, String? license});
