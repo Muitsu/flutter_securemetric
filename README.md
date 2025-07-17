@@ -18,6 +18,14 @@ A Flutter plugin created with integrated support for the native Securemetric SDK
 > Once the fingerprint scanner is connected, if the system detects that the device is running in **USB debugging mode (wired debugging)**, the scanner will be **automatically disconnected** to prevent unauthorized access or tampering during development.
 >
 > This is a security feature and applies when connecting via `connectFPScanner()`. Ensure USB debugging is disabled for production environments.
+## ⚠️ Important Note About License & App ID
+
+The license key used for initializing the SDK is **tied to the `app_id`** (application ID / package name) of your app.
+
+- ✅ **Make sure the license was generated specifically for your app's package name.**
+- ❌ **If you attempt to use a license purchased or generated for a different `app_id`, the fingerprint functionality will not work.**
+
+This restriction is enforced by the SDK provider to ensure license integrity and prevent unauthorized usage across different applications.
 
 ## Installation
 
@@ -34,28 +42,33 @@ Go to the `pubspec.yaml` directory
 
 ## Getting Started
 Learn more at [example app !](https://github.com/Muitsu/flutter_securemetric/tree/main/example)
-- Import:
+### Import
 ```dart
 import 'package:flutter_securemetric/flutter_securemetric.dart';
 ```
-- Initialize controller:
+
+
+### Initialize Controller
+To get started, initialize the `SecuremetricController` in your widget's `initState`.
 ```dart
 final SecuremetricController sController = SecuremetricController();
 
-  @override
-  void initState() {
-    super.initState();
-    sController.init(
-      license: null,
-      verifyFP: true,
-      context: context,
-      device: SecuremetricDevice.v11,
-    );
-     WidgetsBinding.instance.addObserver(this);
-  }
+@override
+void initState() {
+  super.initState();
+
+  sController.init(
+    license: null, // Or provide your license string here
+    verifyFP: true, // Enables fingerprint verification
+    context: context, // Required for showing native messages or Snackbars
+    device: SecuremetricDevice.v11, // Set the target device version
+  );
+
+  WidgetsBinding.instance.addObserver(this);
+}
 ```
 
-- Handle app life cycle:
+###  Handle app life cycle:
 ```dart
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -65,7 +78,7 @@ final SecuremetricController sController = SecuremetricController();
     }
   }
 ```
-- Assign the controller that you have created earlier to SecuremetricWidget 
+###  Assign the controller that you have created earlier to SecuremetricWidget 
 ```dart
         SecuremetricWidget(
             controller: sController,
