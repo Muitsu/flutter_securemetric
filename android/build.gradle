@@ -17,8 +17,7 @@ rootProject.allprojects {
         google()
         mavenCentral()
         flatDir {
-            // e.g. dirs project(':url_launcher').file('libs')  - don't miss the ':'
-            dirs project(':flutter_securemetric').file('libs')
+            dirs 'libs' // ✅ Make sure `myID.aar` is inside this folder
         }
     }
 }
@@ -50,20 +49,35 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs' // ✅ this looks inside the plugin itself
+    }
+}
+
+configurations.configureEach {
+    resolutionStrategy {
+        eachDependency {
+            if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
+                useVersion("1.9.10")
+            }
+        }
+    }
+}
+
 dependencies {
     // ✅ Required for Flutter plugins to resolve FlutterPlugin, MethodChannel etc.
-    implementation "io.flutter:flutter_embedding_debug:1.0.0"
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.18.0")
 
     // ✅ Other normal deps
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'com.google.code.gson:gson:2.13.1'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.1.0'
-    implementation 'io.flutter:flutter_embedding_debug:1.0.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.10'
 
     //  ✅ Add AAR dependency
-    implementation(name: 'myID', ext: 'aar') {
+    //  📝 NOTE: For .aar files detect on app, please USE 'api' instead 'implementation'
+    api(name: 'myID', ext: 'aar'){
         exclude group: 'com.morpho.morphosmart.sdk', module: 'libc++_shared-armeabi-v7a'
         exclude group: 'com.morpho.morphosmart.sdk', module: 'libc++_shared-arm64-v8a'
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
