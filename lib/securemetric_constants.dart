@@ -1,6 +1,21 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 enum SecuremetricDevice { v11, v20 }
+
+enum SecuremetricCardStatus {
+  READER_INSERTED,
+  CARD_INSERTED,
+  CARD_SUCCESS,
+  CARD_INSERTED_ERROR,
+  CARD_REMOVE,
+  READER_REMOVED,
+  VERIFY_FP,
+  FP_FAILED_VERIFY,
+  FP_SCANNER_ERROR,
+  FP_SUCCESS_VERIFY,
+}
 
 enum ReaderStatus {
   insert(

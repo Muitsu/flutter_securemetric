@@ -40,15 +40,38 @@ Go to the `pubspec.yaml` directory
           ref: main
 ```
 
-## Getting Started
-Learn more at [example app !](https://github.com/Muitsu/flutter_securemetric/tree/main/example)
+## Quick Started
 ### Import
 ```dart
 import 'package:flutter_securemetric/flutter_securemetric.dart';
 ```
+### Then, enjoy yourself:
+```dart
+    onPressed: () {   
+        FlutterSecuremetric.verify(
+                    context,
+                    license: null,
+                    device: SecuremetricDevice.v11,
+                    onVerifyFP: (val) {
+                        if (!val) return;
+                        final sCtrl = SecuremetricController();
+                        if (sCtrl.getMyKid != null) {
+                        //Get my Kid details
+                        } else {
+                        //Get my Kad details
+                        }
+                    },
+          );
+    }
+```
 
 
-### Initialize Controller
+
+## Customization
+
+Learn more at [example app !](https://github.com/Muitsu/flutter_securemetric/tree/main/example)
+
+### 1. Initialize Controller
 To get started, initialize the `SecuremetricController` in your widget's `initState`.
 ```dart
 final SecuremetricController sController = SecuremetricController();
@@ -68,7 +91,7 @@ void initState() {
 }
 ```
 
-###  Handle app life cycle:
+### 2.  Handle app life cycle:
 ```dart
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -78,7 +101,7 @@ void initState() {
     }
   }
 ```
-###  Assign the controller that you have created earlier to SecuremetricWidget 
+### 3. Assign the controller that you have created earlier to SecuremetricWidget 
 ```dart
         SecuremetricWidget(
             controller: sController,

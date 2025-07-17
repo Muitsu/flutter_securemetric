@@ -7,7 +7,7 @@ import 'package:flutter_securemetric/securemetric_widget.dart';
 import 'package:flutter_securemetric_example/widgets/blinking_text.dart';
 
 class WidgetExamplePage extends StatefulWidget {
-  final void Function(bool) onVerifyFP;
+  final void Function(bool val) onVerifyFP;
   const WidgetExamplePage({super.key, required this.onVerifyFP});
 
   @override

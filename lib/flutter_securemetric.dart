@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_securemetric/model/sdk_response_model.dart';
+import 'package:flutter_securemetric/securemetric_constants.dart';
+import 'package:flutter_securemetric/securemetric_dialog.dart';
 import 'flutter_securemetric_platform_interface.dart';
 import 'dart:developer' as dev;
 
@@ -128,17 +130,25 @@ class FlutterSecuremetric {
         ),
       );
   }
-}
 
-enum SecuremetricCardStatus {
-  READER_INSERTED,
-  CARD_INSERTED,
-  CARD_SUCCESS,
-  CARD_INSERTED_ERROR,
-  CARD_REMOVE,
-  READER_REMOVED,
-  VERIFY_FP,
-  FP_FAILED_VERIFY,
-  FP_SCANNER_ERROR,
-  FP_SUCCESS_VERIFY,
+  static void verify(
+    BuildContext context, {
+    required String? license,
+    required SecuremetricDevice device,
+    bool verifyFP = true,
+    required Function(bool isVerifyFP) onVerifyFP,
+    double initialChildSize = 0.6,
+    double maxChildSize = 0.6,
+    double minChildSize = 0.3,
+  }) {
+    SecuremetricDialog.show(
+      context,
+      license: license,
+      device: device,
+      onVerifyFP: onVerifyFP,
+      initialChildSize: initialChildSize,
+      maxChildSize: maxChildSize,
+      minChildSize: minChildSize,
+    );
+  }
 }
