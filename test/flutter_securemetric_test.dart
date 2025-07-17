@@ -49,6 +49,11 @@ class MockFlutterSecuremetricPlatform
   Future<void> turnOnFP() async {
     dev.log(name: _tag, "turnOnFP");
   }
+
+  @override
+  Future<void> disposeListener() async {
+    dev.log(name: _tag, "disposeListener");
+  }
 }
 
 void main() {

@@ -11,9 +11,6 @@ import 'dart:developer' as dev;
 class FlutterSecuremetric {
   static const MethodChannel _channel = MethodChannel('com.myKad/fingerprint');
   final String _tag = "Securemetric";
-  // Future<String?> getPlatformVersion() {
-  //   return FlutterSecuremetricPlatform.instance.getPlatformVersion();
-  // }
 
   /// Calls native method to initialize SDK with optional license and fingerprint toggle
   Future<void> callSDK({bool usingFP = false, String? license}) {
@@ -56,6 +53,11 @@ class FlutterSecuremetric {
   /// Disposes the SDK
   Future<void> disposeSDK() {
     return FlutterSecuremetricPlatform.instance.disposeSDK();
+  }
+
+  /// Disposes the SDK
+  Future<void> disposeListener() {
+    return FlutterSecuremetricPlatform.instance.disposeListener();
   }
 
   /// Listen to SDK events from native side

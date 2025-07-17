@@ -37,4 +37,5 @@ abstract class FlutterSecuremetricPlatform extends PlatformInterface {
   Future<void> readFingerprint();
   Future<String?> getFPDeviceList();
   Future<void> disposeSDK();
+  Future<void> disposeListener();
 }

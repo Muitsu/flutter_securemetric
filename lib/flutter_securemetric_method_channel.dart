@@ -39,6 +39,11 @@ class MethodChannelFlutterSecuremetric extends FlutterSecuremetricPlatform {
   }
 
   @override
+  Future<void> disposeListener() async {
+    dev.log(name: _tag, "disposeSDK");
+  }
+
+  @override
   Future<String?> getFPDeviceList() async {
     dev.log(name: _tag, "getFPDeviceList");
     return null;
