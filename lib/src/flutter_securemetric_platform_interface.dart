@@ -29,9 +29,9 @@ abstract class FlutterSecuremetricPlatform extends PlatformInterface {
   // }
 
   //
-  Future<void> callSDK({bool usingFP = false, String? license});
-  Future<void> turnOnFP();
-  Future<void> turnOffFP();
+  Future<bool> callSDK({bool usingFP = false, String? license});
+  Future<bool> turnOnFP();
+  Future<bool> turnOffFP();
   Future<void> connectFPScanner();
   Future<void> disconnectFPScanner();
   Future<void> readFingerprint();

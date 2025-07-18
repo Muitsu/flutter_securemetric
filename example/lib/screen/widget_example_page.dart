@@ -1,10 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_securemetric/securemetric_constants.dart';
-import 'package:flutter_securemetric/securemetric_controller.dart';
-import 'package:flutter_securemetric/securemetric_widget.dart';
+import 'package:flutter_securemetric/flutter_securemetric.dart';
 import 'package:flutter_securemetric_example/widgets/blinking_text.dart';
+import 'package:flutter_securemetric_example/widgets/custom_loading.dart';
 
 class WidgetExamplePage extends StatefulWidget {
   final void Function(bool val) onVerifyFP;
@@ -52,7 +51,7 @@ class _WidgetExamplePageState extends State<WidgetExamplePage>
           onPressed: () {
             showLoading(context);
             sController.close().then((val) {
-              Navigator.pop(context);
+              closeLoading(context);
               Navigator.pop(context);
             });
           },
@@ -127,32 +126,9 @@ class _WidgetExamplePageState extends State<WidgetExamplePage>
     );
   }
 
-  Future<dynamic> showLoading(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.3),
-      builder: (context) => PopScope(
-        canPop: false,
-        onPopInvokedWithResult: (didPop, result) async {},
-        child: GestureDetector(
-          onTap: () {},
-          child: Material(
-            color: Colors.black.withValues(alpha: 0.6),
-            child: Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  padding: const EdgeInsets.all(15),
-                  color: Colors.white,
-                  child: const CircularProgressIndicator(),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  Future<dynamic> showLoading(BuildContext context) =>
+      CustomLoading.of(context).showLoading();
+
+  void closeLoading(BuildContext context) =>
+      CustomLoading.of(context).closeLoading();
 }

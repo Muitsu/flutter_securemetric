@@ -53,8 +53,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
       case "myKadSDK":
         usingFP = call.argument("usingFP");
         String license = call.argument("license");
-        startMyKadSDK(license);
-        result.success(null);
+        result.success(startMyKadSDK(license));
         break;
       case "turnOnFP":
         result.success(turnOnFP());
@@ -83,7 +82,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
         result.notImplemented();
     }
   }
-  private void startMyKadSDK(String license) {
+  private boolean startMyKadSDK(String license) {
     if (mReaderManager != null) {
       Log.d(TAG, "Already Initialized");
       return;
@@ -97,8 +96,10 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
     try {
       mReaderManager.init(context, true, license);
       Toast.makeText(context, "SDK Initialized", Toast.LENGTH_SHORT).show();
+      return true;
     } catch (MyIDException e) {
       Log.e(TAG, "SDK Init Error", e);
+      return false;
     }
   }
 

@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_securemetric/flutter_securemetric.dart';
-import 'package:flutter_securemetric/securemetric_constants.dart';
+import 'package:flutter_securemetric/src/flutter_securemetric.dart';
+import 'package:flutter_securemetric/src/securemetric_constants.dart';
 import 'model/model.dart';
 
 class SecuremetricController {
@@ -139,11 +138,10 @@ class SecuremetricController {
       _myKidModel = null;
       return;
     }
-    final json = jsonDecode(data.data!);
     if (data.isDataMykad()) {
-      _myKadModel = MyKadModel.fromJson(json);
+      _myKadModel = data.getMyKadModel();
     } else {
-      _myKidModel = MyKidModel.fromJson(json);
+      _myKidModel = data.getMyKidModel();
     }
   }
 

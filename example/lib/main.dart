@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_securemetric/flutter_securemetric.dart';
-import 'package:flutter_securemetric/securemetric_constants.dart';
-import 'package:flutter_securemetric/securemetric_controller.dart';
 import 'package:flutter_securemetric_example/screen/function_example_page.dart';
 import 'package:flutter_securemetric_example/screen/widget_example_page.dart';
 

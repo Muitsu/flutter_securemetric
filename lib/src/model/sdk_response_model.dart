@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'model.dart';
+
 class SdkResponseModel {
   String? status;
   String? message;
@@ -18,5 +21,21 @@ class SdkResponseModel {
 
   bool isDataMykad() {
     return message!.toLowerCase().contains("mykad");
+  }
+
+  MyKadModel? getMyKadModel() {
+    final json = jsonDecode(data!);
+    if (isDataMykad()) {
+      return MyKadModel.fromJson(json);
+    }
+    return null;
+  }
+
+  MyKidModel? getMyKidModel() {
+    final json = jsonDecode(data!);
+    if (!isDataMykad()) {
+      return MyKidModel.fromJson(json);
+    }
+    return null;
   }
 }

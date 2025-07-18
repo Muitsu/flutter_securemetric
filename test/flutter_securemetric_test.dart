@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_securemetric/flutter_securemetric_platform_interface.dart';
-import 'package:flutter_securemetric/flutter_securemetric_method_channel.dart';
+import 'package:flutter_securemetric/src/flutter_securemetric_platform_interface.dart';
+import 'package:flutter_securemetric/src/flutter_securemetric_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'dart:developer' as dev;
 
@@ -10,8 +10,9 @@ class MockFlutterSecuremetricPlatform
   final String _tag = "MockFlutterSecuremetricPlatform";
 
   @override
-  Future<void> callSDK({bool usingFP = false, String? license}) async {
+  Future<bool> callSDK({bool usingFP = false, String? license}) async {
     dev.log(name: _tag, "callSDK");
+    return true;
   }
 
   @override
@@ -41,13 +42,15 @@ class MockFlutterSecuremetricPlatform
   }
 
   @override
-  Future<void> turnOffFP() async {
+  Future<bool> turnOffFP() async {
     dev.log(name: _tag, "turnOffFP");
+    return true;
   }
 
   @override
-  Future<void> turnOnFP() async {
+  Future<bool> turnOnFP() async {
     dev.log(name: _tag, "turnOnFP");
+    return true;
   }
 
   @override

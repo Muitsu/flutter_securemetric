@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_securemetric/securemetric_constants.dart';
-import 'package:flutter_securemetric/securemetric_controller.dart';
-import 'package:flutter_securemetric/securemetric_widget.dart';
+import 'package:flutter_securemetric/src/securemetric_constants.dart';
+import 'package:flutter_securemetric/src/securemetric_controller.dart';
+import 'package:flutter_securemetric/src/securemetric_widget.dart';
 
 class SecuremetricDialog extends StatefulWidget {
   final String? license;
