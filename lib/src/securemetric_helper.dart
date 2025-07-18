@@ -183,8 +183,9 @@ class SecuremetricHelper {
             color: Colors.black.withValues(alpha: 0.6),
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(color: Colors.white),
                   SizedBox(height: 10),
                   Text(
                     "Please wait...",

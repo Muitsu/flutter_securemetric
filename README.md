@@ -52,14 +52,16 @@ import 'package:flutter_securemetric/flutter_securemetric.dart';
                     context,
                     license: null,
                     device: SecuremetricDevice.v11,
-                    onVerifyFP: (val) {
-                        if (!val) return;
-                        final sCtrl = SecuremetricController();
-                        if (sCtrl.getMyKid != null) {
-                        //Get my Kid details
-                        } else {
+                    onVerifyFP: (val, sdkResponse) {
+                      if (!val) return;
+                      if (sdkResponse == null) return;
+                      if (sdkResponse.isDataMykad()) {
                         //Get my Kad details
-                        }
+                        sdkResponse.getMyKadModel();
+                      } else {
+                        //Get my Kid details
+                        sdkResponse.getMyKidModel();
+                      }
                     },
           );
     }

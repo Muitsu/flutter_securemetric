@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_securemetric/src/securemetric_constants.dart';
-import 'package:flutter_securemetric/src/securemetric_controller.dart';
-import 'package:flutter_securemetric/src/securemetric_widget.dart';
+import 'package:flutter_securemetric/flutter_securemetric.dart';
 
 class SecuremetricDialog extends StatefulWidget {
   final String? license;
   final SecuremetricDevice device;
-  final void Function(bool isVerifyFP) onVerifyFP;
+  final void Function(bool isVerifyFP, SdkResponseModel? data) onVerifyFP;
   final bool verifyFP;
   final double initialChildSize;
   final double maxChildSize;
@@ -30,7 +28,7 @@ class SecuremetricDialog extends StatefulWidget {
     required String? license,
     required SecuremetricDevice device,
     bool verifyFP = true,
-    required Function(bool isVerifyFP) onVerifyFP,
+    required Function(bool isVerifyFP, SdkResponseModel? data) onVerifyFP,
     double initialChildSize = 0.6,
     double maxChildSize = 0.6,
     double minChildSize = 0.3,
@@ -127,7 +125,10 @@ class _SecuremetricDialogState extends State<SecuremetricDialog>
                         onVerifyFP: (val) {
                           if (!val) return;
                           Future.delayed(const Duration(milliseconds: 800), () {
-                            widget.onVerifyFP(val);
+                            widget.onVerifyFP(
+                              val,
+                              sController.getSdkResponseModel,
+                            );
                             // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                           });

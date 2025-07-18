@@ -136,7 +136,7 @@ class FlutterSecuremetric {
     required String? license,
     required SecuremetricDevice device,
     bool verifyFP = true,
-    required Function(bool isVerifyFP) onVerifyFP,
+    required Function(bool isVerifyFP, SdkResponseModel? data) onVerifyFP,
     double initialChildSize = 0.6,
     double maxChildSize = 0.6,
     double minChildSize = 0.3,

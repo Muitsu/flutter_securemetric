@@ -21,9 +21,11 @@ class SecuremetricController {
   StreamController<ReaderResponse>? controller;
   MyKadModel? _myKadModel;
   MyKidModel? _myKidModel;
+  SdkResponseModel? _sdkResponseModel;
 
   // Get the stream
   Stream<ReaderResponse>? get stream => controller?.stream;
+  SdkResponseModel? get getSdkResponseModel => _sdkResponseModel;
   MyKadModel? get getMyKad => _myKadModel;
   MyKidModel? get getMyKid => _myKidModel;
 
@@ -136,6 +138,7 @@ class SecuremetricController {
   }
 
   void setMyKadData(SdkResponseModel? data) {
+    _sdkResponseModel = data;
     if (data == null) {
       _myKadModel = null;
       _myKidModel = null;
@@ -174,15 +177,19 @@ class SecuremetricController {
           child: Material(
             color: Colors.black.withValues(alpha: 0.6),
             child: Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  padding: const EdgeInsets.all(15),
-                  color: Colors.white,
-                  child: const CircularProgressIndicator(color: Colors.blue),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: Colors.white),
+                  SizedBox(height: 10),
+                  Text(
+                    "Please wait...",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
