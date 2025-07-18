@@ -85,7 +85,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
   private boolean startMyKadSDK(String license) {
     if (mReaderManager != null) {
       Log.d(TAG, "Already Initialized");
-      return;
+      return false;
     }
 
     mReaderManager = new MyID();

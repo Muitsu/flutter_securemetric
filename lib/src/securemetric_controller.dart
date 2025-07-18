@@ -36,8 +36,11 @@ class SecuremetricController {
   }) async {
     if (controller == null) {
       controller = StreamController<ReaderResponse>.broadcast();
-      await FlutterSecuremetric().callSDK(usingFP: verifyFP, license: license);
-
+      final isSuccess = await FlutterSecuremetric().callSDK(
+        usingFP: verifyFP,
+        license: license,
+      );
+      if (!isSuccess) return;
       /* --- Start V11 settings ---*/
       if (device == SecuremetricDevice.v11) {
         if (!context.mounted) return;

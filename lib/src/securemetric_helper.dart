@@ -20,10 +20,14 @@ class SecuremetricHelper {
     required void Function() onVerifyFP,
     required void Function() onSuccessFP,
     required void Function() onErrorFP,
+    bool usingFP = true,
   }) async {
     _showLoading(context);
     _setMessage(context, msg: "Connecting to : ${device.name} SDK");
-    final isSuccess = await FlutterSecuremetric().callSDK();
+    final isSuccess = await FlutterSecuremetric().callSDK(
+      usingFP: usingFP,
+      license: license,
+    );
     if (!isSuccess) {
       if (!context.mounted) return;
       onInitialize(false);
@@ -134,9 +138,8 @@ class SecuremetricHelper {
   /// Debug message
   void _setMessage(BuildContext context, {required String msg}) {
     dev.log(name: _tag, msg);
-    if (isDebug) {
-      _showSnackBar(context, msg);
-    }
+    if (!isDebug) return;
+    _showSnackBar(context, msg);
   }
 
   /// Secure delay
