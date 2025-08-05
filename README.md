@@ -40,6 +40,24 @@ Go to the `pubspec.yaml` directory
           ref: main
 ```
 
+Go to the `android/build.gradle.kts` directory
+
+```kotlin
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+
+        //✅ Add this
+        flatDir {
+            dirs(project(":flutter_securemetric").file("libs"))
+        }
+
+    }
+}
+
+```
+
 ## Quick Started
 ### Import
 ```dart
