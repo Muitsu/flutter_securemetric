@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'securemetric_controller.dart';
@@ -65,5 +67,60 @@ class _SecuremetricWidgetState extends State<SecuremetricWidget> {
     } else if (lowerMsg.contains("try again")) {
       widget.onVerifyFP(false);
     }
+  }
+}
+
+class ScmBlinkText extends StatefulWidget {
+  final String text;
+  final TextStyle? style;
+  final Duration duration;
+  final TextAlign? textAlign;
+  const ScmBlinkText(
+    this.text, {
+    super.key,
+    this.style,
+    this.duration = const Duration(milliseconds: 500),
+    this.textAlign,
+  });
+
+  @override
+  ScmBlinkTextState createState() => ScmBlinkTextState();
+}
+
+class ScmBlinkTextState extends State<ScmBlinkText> {
+  bool _isVisible = true;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startBlinking();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startBlinking() {
+    _timer = Timer.periodic(widget.duration, (timer) {
+      setState(() {
+        _isVisible = !_isVisible;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _isVisible ? 1.0 : 0.0,
+      duration: widget.duration,
+      child: Text(
+        widget.text,
+        textAlign: widget.textAlign,
+        style: widget.style,
+      ),
+    );
   }
 }

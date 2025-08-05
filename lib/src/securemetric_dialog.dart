@@ -151,7 +151,7 @@ class _SecuremetricDialogState extends State<SecuremetricDialog>
                                           fontWeight: FontWeight.w700,
                                         ),
                                       )
-                                    : Text(
+                                    : ScmBlinkText(
                                         readerStatus.title,
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
@@ -168,7 +168,15 @@ class _SecuremetricDialogState extends State<SecuremetricDialog>
                                         child:
                                             const CircularProgressIndicator(),
                                       )
-                                    : FittedBox(child: readerStatus.widget),
+                                    : FittedBox(
+                                        child: Image.asset(
+                                          readerStatus.imgSrc,
+                                          fit: BoxFit.contain,
+                                          height: constraint.maxHeight * .3,
+                                          width: constraint.maxWidth * .8,
+                                        ),
+                                      ),
+                                // : FittedBox(child: readerStatus.widget),
                                 SizedBox(height: constraint.maxHeight * .04),
                                 Visibility(
                                   visible: readerStatus.showTryAgain,

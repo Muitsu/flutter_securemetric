@@ -20,6 +20,7 @@ enum SecuremetricCardStatus {
 enum ReaderStatus {
   insert(
     title: "Please insert card",
+    imgSrc: "assets/insert_card.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.upload), Text("Please insert card")],
@@ -28,6 +29,7 @@ enum ReaderStatus {
   ),
   cardSuccess(
     title: "Read card successful",
+    imgSrc: "assets/success_card.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.check_circle), Text("Read card successful")],
@@ -36,6 +38,7 @@ enum ReaderStatus {
   ),
   cardFailed(
     title: "Remove card and try again",
+    imgSrc: "assets/failed_card.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.warning), Text("Remove card and try again")],
@@ -44,6 +47,7 @@ enum ReaderStatus {
   ),
   remove(
     title: "Remove card",
+    imgSrc: "assets/remove_card.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.close), Text("Remove card and try again")],
@@ -52,11 +56,13 @@ enum ReaderStatus {
   ),
   insertFP(
     title: "Please place your fingerprint at the scanner",
+    imgSrc: "assets/fp_scan.png",
     widget: Icon(Icons.fingerprint),
     query: "place your fingerprint",
   ),
   successFP(
     title: "User verification successful",
+    imgSrc: "assets/fp_success.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.person), Text("User verification successful")],
@@ -65,6 +71,7 @@ enum ReaderStatus {
   ),
   failedFP(
     title: "Error: Please try again",
+    imgSrc: "assets/fp_failed.png",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [Icon(Icons.error), Text("Error: Please try again")],
@@ -73,6 +80,7 @@ enum ReaderStatus {
   ),
   loading(
     title: "Loading ...",
+    imgSrc: "",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [CircularProgressIndicator(), Text("Loading ...")],
@@ -81,6 +89,7 @@ enum ReaderStatus {
   ),
   loadingFP(
     title: "Initialize Fingerprint Hardware...",
+    imgSrc: "",
     widget: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -94,6 +103,7 @@ enum ReaderStatus {
   final String title;
   final Widget widget;
   final String query;
+  final String imgSrc;
 
   bool get isLoading =>
       this == ReaderStatus.loading || this == ReaderStatus.loadingFP;
@@ -114,5 +124,6 @@ enum ReaderStatus {
     required this.title,
     required this.widget,
     required this.query,
+    required this.imgSrc,
   });
 }
