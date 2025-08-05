@@ -1,7 +1,7 @@
 name: flutter_securemetric
-description: "A new Flutter plugin project."
+description: "A Flutter plugin that intergrate with Securemetric SDK."
 version: 0.0.1
-homepage:
+homepage: https://github.com/Muitsu/flutter_securemetric
 
 environment:
   sdk: ^3.8.1
