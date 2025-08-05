@@ -171,6 +171,7 @@ class _SecuremetricDialogState extends State<SecuremetricDialog>
                                     : FittedBox(
                                         child: Image.asset(
                                           readerStatus.imgSrc,
+                                          package: "flutter_securemetric",
                                           fit: BoxFit.contain,
                                           height: constraint.maxHeight * .3,
                                           width: constraint.maxWidth * .8,
