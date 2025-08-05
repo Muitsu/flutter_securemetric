@@ -1,8 +1,8 @@
 package com.securemetric.myidreader.flutter_securemetric;
 
-import static com.morpho.android.usb.USBManager.context;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.hardware.usb.UsbDevice;
 import android.os.Handler;
 import android.os.Looper;
@@ -40,9 +40,10 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
   private String pluggedReader = "";
   private TaskCanceler mTaskCanceler;
   private final Handler mHandlerTask = new Handler(Looper.getMainLooper());
-
+  private Context applicationContext;
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+    this.applicationContext = flutterPluginBinding.getApplicationContext();
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "com.myKad/fingerprint");
     channel.setMethodCallHandler(this);
   }
@@ -62,7 +63,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
         result.success(turnOffFP());
         break;
       case "connectScanner":
-        result.success(fpManager.connectFPDevice(context));
+        result.success(fpManager.connectFPDevice(applicationContext));
         break;
       case "disconnectScanner":
         result.success(fpManager.disconnectFPDevice());
@@ -94,8 +95,8 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
     mReaderManager.setDeviceFilter(mDeviceFilter);
 
     try {
-      mReaderManager.init(context, true, license);
-      Toast.makeText(context, "SDK Initialized", Toast.LENGTH_SHORT).show();
+      mReaderManager.init(applicationContext, true, license);
+      Toast.makeText(applicationContext, "SDK Initialized", Toast.LENGTH_SHORT).show();
       return true;
     } catch (MyIDException e) {
       Log.e(TAG, "SDK Init Error", e);
@@ -105,7 +106,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
 
   private boolean turnOnFP() {
     try {
-      fpManager.initFPConnector(context);
+      fpManager.initFPConnector(applicationContext);
       return true;
     } catch (Exception e) {
       Log.e(TAG, e.toString());
@@ -115,7 +116,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
 
   private boolean turnOffFP() {
     try {
-      fpManager.turnOffSwitch(context);
+      fpManager.turnOffSwitch(applicationContext);
       return true;
     } catch (Exception e) {
       Log.e(TAG, e.toString());
@@ -125,7 +126,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
 
   private String getFPDeviceList() {
     try {
-      List<DeviceInfo> data = fpManager.getFPDeviceList(context);
+      List<DeviceInfo> data = fpManager.getFPDeviceList(applicationContext);
       return DeviceInfo.listToJson(data).toString();
     } catch (Exception e) {
       return "Error: " + e.getMessage();
@@ -135,7 +136,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
   private void readFingerprint() {
     sdkResponse = new SDKResponse("VERIFY_FP", "Verifying Fingerprint", "");
     channel.invokeMethod("VERIFY_FP", sdkResponse.toJson().toString());
-    mTask = new ReadFingerprint(mReaderManager, context, channel);
+    mTask = new ReadFingerprint(mReaderManager, applicationContext, channel);
     mTask.execute(pluggedReader);
     mTaskCanceler = new TaskCanceler(mTask, 0xFF);
     mHandlerTask.postDelayed(mTaskCanceler, 200_000);
@@ -166,7 +167,7 @@ public class FlutterSecuremetricPlugin implements FlutterPlugin, MethodCallHandl
       sdkResponse = new SDKResponse("CARD_INSERTED", "Retrieve data ...", "");
       channel.invokeMethod("CARD_INSERTED", sdkResponse.toJson());
       pluggedReader = readerName;
-      mTask = new ReadCard(mReaderManager, channel, readerName, usingFP, context);
+      mTask = new ReadCard(mReaderManager, channel, readerName, usingFP, applicationContext);
       mTask.execute(readerName);
       mTaskCanceler = new TaskCanceler(mTask, 0xFF);
       mHandlerTask.postDelayed(mTaskCanceler, 200_000);
