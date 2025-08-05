@@ -1,4 +1,4 @@
-![flutter_securemetric](https://raw.githubusercontent.com/Muitsu/flutter-securemetric/refs/heads/main/assets/banner.png)
+![flutter_securemetric](https://raw.githubusercontent.com/Muitsu/flutter_securemetric/refs/heads/main/assets/banner.png)
 
 # Securemetric SDK Plugin (Unofficial)
 A Flutter plugin created with integrated support for the native Securemetric SDK.
